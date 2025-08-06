@@ -1,7 +1,10 @@
 import { NextResponse } from 'next/server'
 
 export function middleware(req) {
-  const token = req.cookies.get('authjs.session-token')?.value
+  const token =
+    req.cookies.get('authjs.session-token')?.value || // For default provider
+    req.cookies.get('__Secure-authjs.session-token')?.value // For secure prod
+
   const url = req.nextUrl
 
   const protectedPaths = [
@@ -15,13 +18,13 @@ export function middleware(req) {
     url.pathname.startsWith(path)
   )
 
-  // Redirect to login if trying to access protected routes without auth
+  // Redirect to login if unauthenticated user hits protected path
   if (isProtected && !token) {
     return NextResponse.redirect(new URL('/login', req.url))
   }
 
-  // Redirect to home if trying to access signup while already logged in
-  const publicAuthPages = ['/signup','/login']
+  // Prevent authenticated users from visiting login/signup
+  const publicAuthPages = ['/signup', '/login']
   const isAuthPage = publicAuthPages.includes(url.pathname)
 
   if (isAuthPage && token) {
@@ -35,8 +38,6 @@ export const config = {
   matcher: [
     '/admin/:path*',
     '/signup',
-    '/auth/signup',
-    '/signin',
-    '/auth/signin'
+    '/login'
   ]
 }
