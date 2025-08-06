@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React, { use, useEffect, useState } from 'react'
 
-const page = ({ params }) => {
+const BlogPage = ({ params }) => {
     const { id } = use(params);
     const [data, setData] = useState(null);
 
@@ -48,4 +48,4 @@ const page = ({ params }) => {
     )
 }
 
-export default page
+export default BlogPage

@@ -21,7 +21,7 @@ const Page = async() => {
         }}>
           <button type='submit' className='py-2 px-2 font-bold bg-white text-black w-[100%] border rounded-md cursor-pointer'>Sign In With Google</button>
         </form>
-        <Link href="/signup" className='text-center inline-block mt-2'>Don't have an account? <span className='text-blue-600 font-bold'>Sign Up</span></Link>
+        <Link href="/signup" className='text-center inline-block mt-2'>Don&apos;t have an account? <span className='text-blue-600 font-bold'>Sign Up</span></Link>
       </div>
     </div>
   )
